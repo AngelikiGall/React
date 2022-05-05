@@ -1,8 +1,11 @@
 function Dashboard() {
     return (
         <div classname= "Dashboard">
-            <h3> Harry potter! </h3>
+            <h1> Dashboard </h1>
+            <label>Movies</label>
+
         </div>
+
     );
 }
 export default Dashboard;
