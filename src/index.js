@@ -1,34 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import Home from './pages/home/home';
-import Error404 from './pages/errror404';
-import Dashboard from './pages/dashboard/dashboard';
-import {BrowserRouter, Route, Routes } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Error404 from "./pages/Error404/Error404";
+import Header from "./components/Header/Header";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+const queryClient = new QueryClient();
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-import Header from './components/Header/Header';
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-    <Header></Header>
-      <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/dashboard" element={<Dashboard />}/>
-        <Route path="*" element={<Error404 />}/>
-       </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
-

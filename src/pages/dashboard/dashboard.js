@@ -1,38 +1,19 @@
-import { useEffect } from "react";
-import {getMovies} from "../../api/movies";
-import { useState } from "react";
+import { useQuery } from "react-query";
+import { getMovies } from "../../api/movies";
 
-function Dashboard() {
-    
-    const [movies, setMovies] = useState([]);
-    
-    useEffect( () => { 
-        getMovies().then( (movies) => {
-        //console.log(movies);
-        setMovies(movies);
-    });
-}, []) //to run one time only n mount. 
+const Dashboard = () => {
+  const { status, data: movies } = useQuery("movies", () => getMovies());
 
-function printMovieTitle(movie){
-    return movie.original_title;
-}
-    return (
-        <div className= "Dashboard">
-            <h1> Dashboard </h1>
-            <div id="TotalMovies">
-                <div><label>Movies</label></div>
-                <div><label>{movies.length}</label></div>
-            </div>
-           
-            <div id="MovieList">
-                <ul>
-                    {movies?.map((movie) => <li>{movie.title}</li>)};
-                </ul>
-            </div>
-        
-        </div>
-        
-        
-    );
-}
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <ul>
+        {movies?.map((movie) => (
+          <li key={movie.id}>{movie.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 export default Dashboard;
